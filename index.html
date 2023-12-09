@@ -57,12 +57,18 @@
         message.textContent = "太小了，再試一次。";
         message.style.color = "red";
         firstNum.textContent = userGuess;
+        if (times > 4){
+          message.textContent = `You Failed! 答案是 ${targetNumber}`;
+          guessSubmit.disabled = true;
+        }
       } else {
         message.textContent = "太大了，再試一次。";
-        message.style.color = "red";
+        message.style.color = "red";    
         secondNum.textContent = userGuess;
-      }
-
+        if (times > 4){
+          message.textContent = `You Failed! 答案是 ${targetNumber}`;
+          guessSubmit.disabled = true;
+        }
       guessField.value = "";
       guessField.focus();
     }
