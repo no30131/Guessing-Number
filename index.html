@@ -6,7 +6,6 @@
   </head>
   <body>
     <h1>猜數字遊戲</h1>
-    <!--p>1 到 100 之間的數字，你猜是多少？<-->
     <p>
       <span class="firstNum"></span>
       到
@@ -16,6 +15,10 @@
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
     <p class="message"></p>
+    <p> <!--Get Answer-->
+      <input type="button" value="揭曉答案!" id="getAnswer">
+    </p>
+    <p class="showAnswer"></p>
   </body>
   <script>
     // Random number
@@ -28,13 +31,16 @@
     const firstNum = document.querySelector(".firstNum");
     const secondNum = document.querySelector(".secondNum");
     const message = document.querySelector(".message");
+    const getAnswer = document.getElementById("getAnswer");
+    const showAnswer = document.querySelector(".showAnswer");
 
     firstNum.textContent = 1;
-    secondNum.textContent = 100;
+    secondNum.textContent = 100;    
+    let times = 0;
 
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
-    let times = 0;
+    getAnswer.addEventListener("click", checkAnswer);
 
     // Guess function
     function checkGuess() {
@@ -59,6 +65,10 @@
 
       guessField.value = "";
       guessField.focus();
+    }
+    // 揭曉答案
+    function checkAnswer(){
+      showAnswer.textContent = targetNumber;
     }
   </script>
 </html>
