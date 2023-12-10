@@ -21,7 +21,8 @@
     <p class="showAnswer"></p>
     <p> <!--Play Again-->
       <input type="button" value="再玩一次!" id="playAgain">
-    </p>
+    </p>    
+    <p class="countDown"></p>
   </body>
   <script>
     // Random number
@@ -37,7 +38,8 @@
     const getAnswer = document.getElementById("getAnswer");
     const showAnswer = document.querySelector(".showAnswer");
     const playAgain = document.getElementById("playAgain");
-
+    const countDown = document.querySelector(".countDown");
+    
     // initialize
     firstNum.textContent = 1;
     secondNum.textContent = 100;    
@@ -67,8 +69,18 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
           // auto reset in 5 sec
-          setTimeout(resetGame, 5000); 
-        }
+          setTimeout(function(){
+            delayedDisplay("5", 0, display);
+            delayedDisplay("4", 1000, display);
+            delayedDisplay("3", 2000, display);
+            delayedDisplay("2", 3000, display);
+            delayedDisplay("1", 4000, display);
+            delayedDisplay("", 5000, function(){
+                resetGame();
+                display("");
+              });
+            });
+          };
       } else {
         message.textContent = "太大了，再試一次。";
         message.style.color = "red";    
@@ -77,15 +89,25 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;          
           // auto reset in 5 sec
-          setTimeout(resetGame, 5000); 
-        }
+          setTimeout(function(){
+            delayedDisplay("5", 0, display);
+            delayedDisplay("4", 1000, display);
+            delayedDisplay("3", 2000, display);
+            delayedDisplay("2", 3000, display);
+            delayedDisplay("1", 4000, display);
+            delayedDisplay("", 5000, function(){
+                resetGame();
+                display("");
+              });
+            });
+          };
       }
       guessField.value = "";
-      guessField.focus();
+      guessField.focus();      
     }
     // Show Answer
     function checkAnswer(){
-      showAnswer.textContent = targetNumber;
+      showAnswer.textContent = targetNumber;   
     }    
     // Reset Game
     function resetGame(){
@@ -97,6 +119,16 @@
       guessSubmit.disabled = false;
       targetNumber = Math.floor(Math.random() * 100) + 1;
       console.log("answer: " + targetNumber);
+    }
+    // countdown to reset
+    function delayedDisplay(string, ms, callback){  
+      setTimeout(function(){
+        callback(string);
+      }, ms);      
+    }
+    function display(string){
+      console.log(string); 
+      countDown.textContent = string;
     }
   </script>
 </html>
