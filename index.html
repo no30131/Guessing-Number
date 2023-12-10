@@ -69,13 +69,13 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
           // auto reset in 5 sec
-          setTimeout(function(){
+          setTimeout(() => {
             delayedDisplay("5", 0, display);
             delayedDisplay("4", 1000, display);
             delayedDisplay("3", 2000, display);
             delayedDisplay("2", 3000, display);
             delayedDisplay("1", 4000, display);
-            delayedDisplay("", 5000, function(){
+            delayedDisplay("", 5000, () => {
                 resetGame();
                 display("");
               });
@@ -89,13 +89,13 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;          
           // auto reset in 5 sec
-          setTimeout(function(){
+          setTimeout(() => {
             delayedDisplay("5", 0, display);
             delayedDisplay("4", 1000, display);
             delayedDisplay("3", 2000, display);
             delayedDisplay("2", 3000, display);
             delayedDisplay("1", 4000, display);
-            delayedDisplay("", 5000, function(){
+            delayedDisplay("", 5000, () => {
                 resetGame();
                 display("");
               });
