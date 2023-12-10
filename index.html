@@ -69,18 +69,19 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
           // auto reset in 5 sec
-          setTimeout(() => {
-            delayedDisplay("5", 0, display);
-            delayedDisplay("4", 1000, display);
-            delayedDisplay("3", 2000, display);
-            delayedDisplay("2", 3000, display);
-            delayedDisplay("1", 4000, display);
-            delayedDisplay("", 5000, () => {
+          for (let i = 5; i > -1; i--){
+            if (i === 0){
+              setTimeout(() => {
                 resetGame();
                 display("");
-              });
-            });
-          };
+              }, (5 - i) * 1000);
+            } else {
+              setTimeout(() => {
+                delayedDisplay(i, 0, display)
+              }, (5 - i) * 1000);
+            }
+          }
+        }
       } else {
         message.textContent = "太大了，再試一次。";
         message.style.color = "red";    
@@ -89,18 +90,19 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;          
           // auto reset in 5 sec
-          setTimeout(() => {
-            delayedDisplay("5", 0, display);
-            delayedDisplay("4", 1000, display);
-            delayedDisplay("3", 2000, display);
-            delayedDisplay("2", 3000, display);
-            delayedDisplay("1", 4000, display);
-            delayedDisplay("", 5000, () => {
+          for (let i = 5; i > -1; i--){
+            if (i === 0){
+              setTimeout(() => {
                 resetGame();
                 display("");
-              });
-            });
-          };
+              }, (5 - i) * 1000);
+            } else {
+              setTimeout(() => {
+                delayedDisplay(i, 0, display)
+              }, (5 - i) * 1000);
+            }
+          }
+        }
       }
       guessField.value = "";
       guessField.focus();      
