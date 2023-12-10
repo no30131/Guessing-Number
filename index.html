@@ -66,6 +66,8 @@
         if (times > 4){        
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
+          // auto reset in 5 sec
+          setTimeout(resetGame, 5000); 
         }
       } else {
         message.textContent = "太大了，再試一次。";
@@ -73,7 +75,9 @@
         secondNum.textContent = userGuess;
         if (times > 4){
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
-          guessSubmit.disabled = true;
+          guessSubmit.disabled = true;          
+          // auto reset in 5 sec
+          setTimeout(resetGame, 5000); 
         }
       }
       guessField.value = "";
