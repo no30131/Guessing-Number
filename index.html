@@ -19,10 +19,13 @@
       <input type="button" value="揭曉答案!" id="getAnswer">
     </p>
     <p class="showAnswer"></p>
+    <p> <!--Play Again-->
+      <input type="button" value="再玩一次!" id="playAgain">
+    </p>
   </body>
   <script>
     // Random number
-    const targetNumber = Math.floor(Math.random() * 100) + 1;
+    let targetNumber = Math.floor(Math.random() * 100) + 1;
     console.log("answer: " + targetNumber);
 
     // Get element
@@ -33,7 +36,9 @@
     const message = document.querySelector(".message");
     const getAnswer = document.getElementById("getAnswer");
     const showAnswer = document.querySelector(".showAnswer");
+    const playAgain = document.getElementById("playAgain");
 
+    // initialize
     firstNum.textContent = 1;
     secondNum.textContent = 100;    
     let times = 0;
@@ -41,6 +46,7 @@
     // Event listener
     guessSubmit.addEventListener("click", checkGuess);
     getAnswer.addEventListener("click", checkAnswer);
+    playAgain.addEventListener("click", resetGame);
 
     // Guess function
     function checkGuess() {
@@ -57,7 +63,7 @@
         message.textContent = "太小了，再試一次。";
         message.style.color = "red";
         firstNum.textContent = userGuess;
-        if (times > 4){
+        if (times > 4){        
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
         }
@@ -69,12 +75,24 @@
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
         }
+      }
       guessField.value = "";
       guessField.focus();
     }
-    // 揭曉答案
+    // Show Answer
     function checkAnswer(){
       showAnswer.textContent = targetNumber;
+    }    
+    // Reset Game
+    function resetGame(){
+      showAnswer.textContent = ``;
+      message.textContent = ``;
+      firstNum.textContent = 1;
+      secondNum.textContent = 100;    
+      times = 0;
+      guessSubmit.disabled = false;
+      targetNumber = Math.floor(Math.random() * 100) + 1;
+      console.log("answer: " + targetNumber);
     }
   </script>
 </html>
