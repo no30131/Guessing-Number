@@ -1,22 +1,54 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const randomNum = () => {
+      const num = Math.floor(Math.random() * 100) + 1;
+      setTargetNum(num);
+    };
+    randomNum();
+  }, []);
+  
+  // init
+  const [targetNum, setTargetNum] = useState(0);
+  const [guessNum, setGuessNum] = useState("");
+  const [message, setMessage] = useState("");
+  const [firstNum, setFirstNum] = useState(1);
+  const [secondNum, setSecondNum] = useState(100);
+
+  console.log("answer: " + targetNum);
+
+  // guessing number
+  const checkGuess = () => {
+    const userGuess = parseInt(guessNum);
+    console.log(`userGuess: ${userGuess}`);
+
+    if (userGuess === targetNum) {
+      setMessage(`恭喜猜對！答案是 ${targetNum}`);
+    } else if (userGuess > targetNum){  
+      setMessage("太大了！");
+    } else {
+      setMessage("太小了！");
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <div>
+        <img src={logo} className="App-logo" alt="logo" />    
+        <h1>猜數字遊戲</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <span className="firstNum">{firstNum}</span> 到{' '}
+          <span className="secondNum">{secondNum}</span> 之間的數字，你猜是多少？
+        </p>    
+        <input type="text" id="guessNum" onChange={(e) => setGuessNum(e.target.value)} value={guessNum} />
+        <button onClick={checkGuess}>猜!</button>
+        {/* <input type="submit" value="猜!" id="guessSubmit" />         */}
+        <p className="message">{message}</p>
+        </div>
       </header>
     </div>
   );
