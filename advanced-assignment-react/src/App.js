@@ -29,8 +29,10 @@ function App() {
       setMessage(`恭喜猜對！答案是 ${targetNum}`);
     } else if (userGuess > targetNum){  
       setMessage("太大了！");
+      setSecondNum(userGuess);
     } else {
       setMessage("太小了！");
+      setFirstNum(userGuess);
     }
   }
 
@@ -46,7 +48,6 @@ function App() {
         </p>    
         <input type="text" id="guessNum" onChange={(e) => setGuessNum(e.target.value)} value={guessNum} />
         <button onClick={checkGuess}>猜!</button>
-        {/* <input type="submit" value="猜!" id="guessSubmit" />         */}
         <p className="message">{message}</p>
         </div>
       </header>
