@@ -7,8 +7,13 @@ const PORT = 3000
 
 app.use(express.json())
 
-app.get('*', (req, res) => {
-	res.status(404).json({ error: 'Page did not exist' })
+app.get("/test", (req, res) => {
+	res.send({msg: "vegan world!"})
+	//res.status(404).json({ error: 'Page111 did not exist' })
+})
+
+app.get("/answer", (req, res) => {
+	res.send({answer: Math.floor(Math.random() * 100) + 1})
 })
 
 app.use((err, req, res, next) => {
