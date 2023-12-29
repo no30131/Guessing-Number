@@ -15,21 +15,21 @@
     <input type="text" id="guessField" />
     <input type="submit" value="猜!" id="guessSubmit" />
     <p class="message"></p>
-    <p> <!--Get Answer-->
+    <p>
       <input type="button" value="揭曉答案!" id="getAnswer">
     </p>
     <p class="showAnswer"></p>
-    <p> <!--Play Again-->
+    <p>
       <input type="button" value="再玩一次!" id="playAgain">
-    </p>    
+    </p>
     <p class="countDown"></p>
   </body>
   <script>
-    // Random number
+    // Random Number
     let targetNumber = Math.floor(Math.random() * 100) + 1;
     console.log("answer: " + targetNumber);
 
-    // Get element
+    // Get Element
     const guessField = document.getElementById("guessField");
     const guessSubmit = document.getElementById("guessSubmit");
     const firstNum = document.querySelector(".firstNum");
@@ -40,68 +40,46 @@
     const playAgain = document.getElementById("playAgain");
     const countDown = document.querySelector(".countDown");
     
-    // initialize
+    // Initialize
     firstNum.textContent = 1;
     secondNum.textContent = 100;    
-    let times = 0;
+    let guessTimes = 0;
 
-    // Event listener
+    // Event Listener
     guessSubmit.addEventListener("click", checkGuess);
     getAnswer.addEventListener("click", checkAnswer);
     playAgain.addEventListener("click", resetGame);
 
-    // Guess function
+    // Guess Function
     function checkGuess() {
       const userGuess = parseInt(guessField.value);
       console.log("userGuess: " + userGuess);
-      times++;
-      console.log(times);
+      guessTimes++;
+      console.log(guessTimes);
 
       if (userGuess === targetNumber) {
-        message.textContent = `恭喜你，你猜對了！你這次猜了 ${times} 次喔～`;
+        message.textContent = `恭喜你，你猜對了！你這次猜了 ${guessTimes} 次喔～`;
         message.style.color = "green";
         guessSubmit.disabled = true;
       } else if (userGuess < targetNumber) {
         message.textContent = "太小了，再試一次。";
         message.style.color = "red";
         firstNum.textContent = userGuess;
-        if (times > 4){        
+        if (guessTimes > 4){
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;
           // auto reset in 5 sec
-          for (let i = 5; i > -1; i--){
-            if (i === 0){
-              setTimeout(() => {
-                resetGame();
-                display("");
-              }, (5 - i) * 1000);
-            } else {
-              setTimeout(() => {
-                delayedDisplay(i, 0, display)
-              }, (5 - i) * 1000);
-            }
-          }
+          autoReset()
         }
       } else {
         message.textContent = "太大了，再試一次。";
         message.style.color = "red";    
         secondNum.textContent = userGuess;
-        if (times > 4){
+        if (guessTimes > 4){
           message.textContent = `You Failed! 答案是 ${targetNumber}`;
           guessSubmit.disabled = true;          
           // auto reset in 5 sec
-          for (let i = 5; i > -1; i--){
-            if (i === 0){
-              setTimeout(() => {
-                resetGame();
-                display("");
-              }, (5 - i) * 1000);
-            } else {
-              setTimeout(() => {
-                delayedDisplay(i, 0, display)
-              }, (5 - i) * 1000);
-            }
-          }
+          autoReset()
         }
       }
       guessField.value = "";
@@ -117,17 +95,35 @@
       message.textContent = ``;
       firstNum.textContent = 1;
       secondNum.textContent = 100;    
-      times = 0;
+      guessTimes = 0;
       guessSubmit.disabled = false;
       targetNumber = Math.floor(Math.random() * 100) + 1;
       console.log("answer: " + targetNumber);
     }
-    // countdown to reset
+    // Auto Reset Game
+    function autoReset() {
+      for (let i = 5; i >= 0; i--){
+        const timesUp = i === 0;
+
+        if (timesUp){
+          setTimeout(() => {
+            resetGame();
+            display("");
+          }, (5 - i) * 1000);
+        } else {
+          setTimeout(() => {
+            delayedDisplay(i, 0, display)
+          }, (5 - i) * 1000);
+        }
+      }
+    }
+    // Countdown To Reset
     function delayedDisplay(string, ms, callback){  
-      setTimeout(function(){
+      setTimeout(function() {
         callback(string);
       }, ms);      
     }
+    // Show Countdown
     function display(string){
       console.log(string); 
       countDown.textContent = string;
